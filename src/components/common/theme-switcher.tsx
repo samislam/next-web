@@ -1,8 +1,8 @@
 'use client'
 
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 import { MoonIcon, SunIcon } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
 import { ToggleGroup, ToggleGroupItem } from '../ui/shadcnui/toggle-group'
 
 export const ThemeSwitcher = () => {

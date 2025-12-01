@@ -1,18 +1,13 @@
 'use client'
 
 import { cn } from '@/utils/cn'
-import { Skeleton } from '../ui/shadcnui/skeleton'
 import { useLocale } from '@/hooks/use-locale'
 import { SyriaFlag } from '../icons/syria-flag'
 import { CanadaFlag } from '../icons/canada-flag'
+import { Skeleton } from '../ui/shadcnui/skeleton'
+import { SelectValue } from '../ui/shadcnui/select'
 import { TurkieyeFlag } from '../icons/turkieye-flag'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/shadcnui/select'
+import { Select, SelectContent, SelectItem, SelectTrigger } from '../ui/shadcnui/select'
 
 export interface LanguageSwitcherProps {
   className?: string
@@ -26,7 +21,7 @@ export const LanguageSwitcher = (props: LanguageSwitcherProps) => {
   return (
     <Select value={locale} onValueChange={changeLocale}>
       <SelectTrigger className={cn('w-[180px]', className)}>
-        <SelectValue placeholder="Theme" />
+        <SelectValue placeholder="Locale" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="en">
