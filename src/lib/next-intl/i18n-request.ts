@@ -21,4 +21,4 @@ export default getRequestConfig(async ({ requestLocale }) => {
   }
 })
 
-const isAppLanguage = (lang: string) => appConfig.languages.includes(lang as AppLanguages)
+export const isAppLanguage = (lang: string) => appConfig.languages.includes(lang as AppLanguages)
