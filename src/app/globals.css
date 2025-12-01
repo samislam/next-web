@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@config '../../tailwind.config.ts';
+@source '../../src/**/*.{ts,tsx,js,jsx,mdx}';
 
 body {
   font-family: Arial, Helvetica, sans-serif;
