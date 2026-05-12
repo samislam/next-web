@@ -1,14 +1,23 @@
 import chalk from 'chalk'
+import { parse } from 'dotenv'
 import { existsSync } from 'fs'
+import { readFileSync } from 'node:fs'
 import { Prisma } from '@clscripts/prisma'
 import { DotenvCli } from '@clscripts/dotenv-cli'
 import { runCommandsSequentially } from '@clscripts/cl-common'
 
+const isDatabaseEnabled = (value?: string) => (value ?? 'no') === 'yes'
+const getEnvFileValues = (envFile: string) => parse(readFileSync(envFile))
 const nodeEnv = process.env.NODE_ENV ?? 'development'
 const possibleEnvFiles = [`.env.${nodeEnv}.local`, '.env.local', `.env.${nodeEnv}`, '.env']
 const dotenvFile = possibleEnvFiles.find((file) => existsSync(file))
 if (dotenvFile) {
   console.log(chalk.cyanBright('Using environment file: '), chalk.bold.greenBright(dotenvFile))
+  const fileEnv = getEnvFileValues(dotenvFile)
+  if (!isDatabaseEnabled(fileEnv.ENABLE_DATABASE ?? process.env.ENABLE_DATABASE)) {
+    console.log(chalk.yellowBright('Skipping Prisma setup because ENABLE_DATABASE is set to "no".'))
+    process.exit(0)
+  }
   runCommandsSequentially([
     new DotenvCli({
       envFile: dotenvFile,
@@ -24,6 +33,10 @@ if (dotenvFile) {
     }).command,
   ])
 } else if (process.env.DATABASE_URL) {
+  if (!isDatabaseEnabled(process.env.ENABLE_DATABASE)) {
+    console.log(chalk.yellowBright('Skipping Prisma setup because ENABLE_DATABASE is set to "no".'))
+    process.exit(0)
+  }
   console.log(chalk.cyanBright('Using DATABASE_URL from environment (no env file found)'))
   runCommandsSequentially([
     new Prisma({
