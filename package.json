@@ -22,6 +22,7 @@
     "prisma": "bun ./scripts/prisma.ts",
     "locales": "bun ./scripts/locales.ts",
     "start": "bun ./dist/scripts/start.js",
+    "sdk:generate": "bun ./scripts/sdk-generate.ts",
     "start:standalone": "node .next/standalone/server.js"
   },
   "dependencies": {
@@ -104,6 +105,7 @@
     "echo-cli": "^2.0.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.6",
+    "orval": "^8.12.3",
     "postcss": "^8.5.6",
     "postcss-load-config": "^6.0.1",
     "prettier": "3.7.3",

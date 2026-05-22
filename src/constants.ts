@@ -24,3 +24,13 @@ export const errorCodes = [
 export type AppErrorCodes = (typeof errorCodes)[number]
 
 export const LOCALE_COOKIE = 'NEXT_LOCALE'
+
+export const COOKIES = {
+  // MAIN_API__AUTH: 'MAIN_API__AUTH',
+} as const
+
+export const QUERY_PARAMS = {
+  dialog: 'dialog',
+  id: 'id',
+  tab: 'tab',
+} as const
