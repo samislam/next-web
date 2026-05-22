@@ -1,12 +1,15 @@
 import chalk from 'chalk'
+import { parse } from 'dotenv'
 import { existsSync } from 'fs'
 import { concat } from 'concat-str'
+import { readFileSync } from 'node:fs'
 import { DotenvCli } from '@clscripts/dotenv-cli'
 import { runCommand } from '@clscripts/cl-common'
 import { Prisma, PrismaRunMode } from '@clscripts/prisma'
 import { select, confirm, input } from '@inquirer/prompts'
 
 const shellEscape = (value: string) => `'${value.replace(/'/g, `'"'"'`)}'`
+const isDatabaseEnabled = (value?: string) => (value ?? 'no') === 'yes'
 const PRISMA_RUN_MODES: PrismaRunMode[] = [
   'init',
   'generate',
@@ -27,6 +30,16 @@ async function main() {
     process.exit(-1)
   }
   console.log(chalk.cyanBright('Using environment file: '), chalk.bold.greenBright(dotenvFile))
+  const fileEnv = parse(readFileSync(dotenvFile))
+
+  if (!isDatabaseEnabled(fileEnv.ENABLE_DATABASE ?? process.env.ENABLE_DATABASE)) {
+    console.error(
+      chalk.redBright(
+        'Prisma commands are disabled because ENABLE_DATABASE is set to "no" in the active environment.'
+      )
+    )
+    process.exit(-1)
+  }
 
   // Read command-line arguments
   const args = process.argv.slice(2) // Ignore "node/bun" and script filename

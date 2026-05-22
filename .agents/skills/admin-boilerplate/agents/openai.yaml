@@ -1,0 +1,4 @@
+interface:
+  display_name: "Admin Boilerplate"
+  short_description: "Follow this Next.js admin starter house style"
+  default_prompt: "Use $admin-boilerplate to implement a feature in this admin starter without breaking its conventions."

@@ -4,6 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin'
 import { sentryConfig } from '@/lib/sentry/sentry._next_.config'
 
 const IMAGE_OPTIMIZATION = process.env.IMAGE_OPTIMIZATION
+const ENABLE_SENTRY = process.env.ENABLE_SENTRY ?? 'no'
 
 const withNextIntl = createNextIntlPlugin('./src/lib/next-intl/i18n-request.ts')
 
@@ -16,6 +17,13 @@ const nextConfig = {
   experimental: {
     turbopackFileSystemCacheForDev: true,
   },
+  env: {
+    NEXT_PUBLIC_ENABLE_SENTRY: ENABLE_SENTRY,
+  },
 } satisfies NextConfig
 
-export default withSentryConfig(withNextIntl(nextConfig), sentryConfig)
+const enhancedConfig = withNextIntl(nextConfig)
+
+export default ENABLE_SENTRY === 'yes'
+  ? withSentryConfig(enhancedConfig, sentryConfig)
+  : enhancedConfig
