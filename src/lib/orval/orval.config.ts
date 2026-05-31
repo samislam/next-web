@@ -1,12 +1,8 @@
 import path from 'node:path'
-import { z } from 'zod'
 import { defineConfig } from 'orval'
+import { orvalEnvSchema } from './orval-env.schema'
 
-const orvalEnv = z
-  .object({
-    ORVAL_OPENAPI_URL: z.string().trim().url(),
-  })
-  .parse(process.env)
+const orvalEnv = orvalEnvSchema.parse(process.env)
 
 export default defineConfig({
   api: {

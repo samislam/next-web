@@ -1,6 +1,6 @@
 // import axios from 'axios'
 // import { clientEnv } from '@/server/client-env'
-// import { getNestStarterAPIBackend } from '@/generated/orval/endpoints'
+// import { getZerocashAPI } from '@/generated/orval/endpoints'
 
 // const axiosInstance = axios.create({
 //   baseURL: clientEnv.NEXT_PUBLIC_MAIN_API_BASE_URL,
@@ -10,4 +10,4 @@
 //   },
 // })
 
-// export const mainApi = getNestStarterAPIBackend(axiosInstance)
+// export const mainApi = getZerocashAPI(axiosInstance)

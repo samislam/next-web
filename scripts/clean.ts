@@ -3,6 +3,6 @@ import { runCommand } from '@clscripts/cl-common'
 
 runCommand(
   new DelCli({
-    files: ['**/{node_modules,.next,*.tsbuildinfo,dist}'],
+    files: ['**/{node_modules,.next,*.tsbuildinfo,dist}', './src/generated'],
   }).command
 )

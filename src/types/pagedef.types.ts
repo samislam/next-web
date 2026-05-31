@@ -3,9 +3,10 @@ import { LibraryIcon } from '@/components/ui/samislam/lib-icon'
 
 export interface PageDef {
   href: string
+  label?: string
   title?: string
   description?: string
-  label?: string
+  dialogs?: Record<string, string>
   meta?: () => Metadata | Promise<Metadata> | Metadata
   /**
    * You can find more icons at:

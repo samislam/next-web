@@ -4,7 +4,7 @@
 // import { COOKIES } from '@/constants'
 // import { headers, cookies } from 'next/headers'
 // import { clientEnv } from '@/server/client-env'
-// import { getNestStarterAPIBackend } from '@/generated/orval/endpoints'
+// import { getZerocashAPI } from '@/generated/orval/endpoints'
 
 // export const getMainApiClient_server = async () => {
 //   const requestHeaders = await headers()
@@ -24,5 +24,5 @@
 //     },
 //   })
 
-//   return getNestStarterAPIBackend(axiosInstance)
+//   return getZerocashAPI(axiosInstance)
 // }
