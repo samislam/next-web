@@ -1,6 +1,3 @@
-import { appRoutingDef } from './app-routing-def'
-import { createNavigation } from 'next-intl/navigation'
-
 /**
  * ✅ Custom i18n-aware navigation helpers.
  *
@@ -14,15 +11,12 @@ import { createNavigation } from 'next-intl/navigation'
  * If you use the default Next.js APIs with missing locale prefixes, the middleware will still
  * redirect to the correct locale, but this adds an extra request round-trip.
  *
+ * `Link` and `useRouter` additionally drive the dashboard's navigation progress bar — see
+ * `./navigation.client`. The rest come straight from next-intl and stay usable from server
+ * components.
+ *
  * @see https://next-intl.dev/docs/routing/navigation
  */
 
-export const {
-  //
-  Link,
-  redirect,
-  useRouter,
-  usePathname,
-  getPathname,
-  permanentRedirect,
-} = createNavigation(appRoutingDef)
+export { redirect, usePathname, getPathname, permanentRedirect } from './navigation-base'
+export { Link, useRouter } from './navigation.client'

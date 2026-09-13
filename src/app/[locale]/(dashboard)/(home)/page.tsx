@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/shadcnui/button'
 import { getTranslate } from '@/lib/tolgee/tolgee-server'
-import { HomeDescription } from '../composables/home-description'
+import { HomeDescription } from '../../composables/home-description'
 import { ThemeSwitcher } from '@/components/common/theme-switcher'
 import { LanguageSwitcher } from '@/components/common/language-switcher'
 

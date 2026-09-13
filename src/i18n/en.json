@@ -1,7 +1,14 @@
 {
+  "@t<back>": "Back",
+  "@t<cancel>": "Cancel",
+  "@t<confirm>": "Confirm",
   "@t<error-page-backhome-button-text>": "Back Home",
   "@t<error-page-description>": "An unexpected error has occurred!",
   "@t<error-page-help-line>": "If the issue persists, please contact the site administrator.",
+  "@t<error-page-login-again-button-text>": "Sign in again",
+  "@t<error-page-refresh-button-text>": "Refresh",
+  "@t<error-page-session-expired-description>": "Your session has expired.",
+  "@t<error-page-session-expired-help-line>": "Sign in again to continue where you left off.",
   "@t<error-page-title>": "Oops!",
   "@t<error-page-tryagain-button-text>": "Try again",
   "@t<home-description>": "<b>A new, fast way to kick off your projects — without the setup hassle.</b>\nThis starter includes built-in localization, file-system routing, RTL support, and light/dark mode out of the box. Plus, you get a helpful toolkit of utilities to boost your workflow.\nStop wasting time configuring things — <b>focus on building your project!</b>",
@@ -26,10 +33,15 @@
     "title>": "Sign in",
     "description>": "Sign in to the administration dashboard."
   },
+  "@t<logout-button>": "Sign out",
+  "@t<logout-dialog-description>": "You'll need to sign in again to get back in.",
+  "@t<logout-dialog-title>": "Sign out?",
   "@t<not-found-page-back-button-text>": "Go back",
   "@t<not-found-page-back-to-home>": "Back Home",
   "@t<not-found-page-description>": "The page you're looking for no longer exists. Perhaps it got removed, or it's never been there.",
   "@t<not-found-page-title>": "Not found!",
   "@t<switching-language-loading-screen-text>": "Changing language...",
-  "@t<toast-login-success>": "Signed in"
+  "@t<toast-error>": "Something went wrong.",
+  "@t<toast-login-success>": "Signed in",
+  "@t<toast-logout-success>": "Signed out"
 }

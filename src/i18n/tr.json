@@ -1,7 +1,14 @@
 {
+  "@t<back>": "Geri",
+  "@t<cancel>": "İptal",
+  "@t<confirm>": "Onayla",
   "@t<error-page-backhome-button-text>": "Ana Sayfa",
   "@t<error-page-description>": "Beklenmeyen bir hata oluştu!",
   "@t<error-page-help-line>": "Sorun devam ederse, lütfen site yöneticisine başvurun.",
+  "@t<error-page-login-again-button-text>": "Tekrar oturum aç",
+  "@t<error-page-refresh-button-text>": "Yenile",
+  "@t<error-page-session-expired-description>": "Oturumunuzun süresi doldu.",
+  "@t<error-page-session-expired-help-line>": "Kaldığınız yerden devam etmek için tekrar oturum açın.",
   "@t<error-page-title>": "Hata!",
   "@t<error-page-tryagain-button-text>": "Tekrar dene",
   "@t<home-description>": "<b>Projelerinizi hızlıca başlatmanın yeni, hızlı yolu - kuruluma ihtiyaç olmadan.</b>\nBu başlangıç paketi, dahili yerelleştirme, dosya sistemi yönlendirme, RTL desteği ve kutudan çıktığı gibi ışık/karanlık mod içerir. Ayrıca, iş akışınızı hızlandırmak için faydalı bir araç kiti elde edersiniz.\nZaman kaybetmeyi bırakın - <b>projenizi oluşturmak için odaklanın!</b>",
@@ -26,10 +33,15 @@
     "title>": "Oturum aç",
     "description>": "Yönetim paneline giriş yapın."
   },
+  "@t<logout-button>": "Oturumu kapat",
+  "@t<logout-dialog-description>": "Geri dönmek için tekrar oturum açmanız gerekecek.",
+  "@t<logout-dialog-title>": "Oturum kapatılsın mı?",
   "@t<not-found-page-back-button-text>": "Geri dön",
   "@t<not-found-page-back-to-home>": "Ana Sayfa",
   "@t<not-found-page-description>": "Aradığınız sayfa artık mevcut değil. Belki kaldırıldı ya da hiç orada değildi.",
   "@t<not-found-page-title>": "Bulunamadı!",
   "@t<switching-language-loading-screen-text>": "Dil değiştiriliyor...",
-  "@t<toast-login-success>": "Oturum açıldı"
+  "@t<toast-error>": "Bir şeyler ters gitti.",
+  "@t<toast-login-success>": "Oturum açıldı",
+  "@t<toast-logout-success>": "Oturum kapatıldı"
 }

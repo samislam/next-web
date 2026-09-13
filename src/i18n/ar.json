@@ -1,7 +1,14 @@
 {
+  "@t<back>": "رجوع",
+  "@t<cancel>": "إلغاء",
+  "@t<confirm>": "تأكيد",
   "@t<error-page-backhome-button-text>": "العودة إلى الصفحة الرئيسية",
   "@t<error-page-description>": "حدث خطأ غير متوقع!",
   "@t<error-page-help-line>": "إذا استمرت المشكلة، يرجى الاتصال بمسؤول الموقع.",
+  "@t<error-page-login-again-button-text>": "تسجيل الدخول مرة أخرى",
+  "@t<error-page-refresh-button-text>": "تحديث",
+  "@t<error-page-session-expired-description>": "انتهت صلاحية جلستك.",
+  "@t<error-page-session-expired-help-line>": "سجّل الدخول مرة أخرى للمتابعة من حيث توقفت.",
   "@t<error-page-title>": "عذرًا!",
   "@t<error-page-tryagain-button-text>": "حاول مرة أخرى",
   "@t<home-description>": "<b>طريقة جديدة وسريعة لبدء مشاريعك — بدون عناء الإعدادات.</b>\nتتضمن هذه البادئة التوطين المدمج وتوجيه نظام الملفات ودعم اللغة من اليمين إلى اليسار ووضع الضوء/الظلام بشكل جاهز. بالإضافة إلى ذلك، تحصل على مجموعة أدوات مفيدة لتعزيز سير العمل.\nتوقف عن إهدار الوقت في تكوين الأشياء — <b> وركز على بناء مشروعك!</b>",
@@ -26,10 +33,15 @@
     "title>": "تسجيل الدخول",
     "description>": "سجّل الدخول إلى لوحة الإدارة."
   },
+  "@t<logout-button>": "تسجيل الخروج",
+  "@t<logout-dialog-description>": "ستحتاج إلى تسجيل الدخول مرة أخرى للعودة.",
+  "@t<logout-dialog-title>": "تسجيل الخروج؟",
   "@t<not-found-page-back-button-text>": "العودة",
   "@t<not-found-page-back-to-home>": "العودة إلى الصفحة الرئيسية",
   "@t<not-found-page-description>": "الصفحة التي تبحث عنها لم تعد موجودة. ربما تم إزالتها، أو لم تكن هناك أبداً.",
   "@t<not-found-page-title>": "غير موجود!",
   "@t<switching-language-loading-screen-text>": "انتظر قليلاً...",
-  "@t<toast-login-success>": "تم تسجيل الدخول"
+  "@t<toast-error>": "حدث خطأ ما.",
+  "@t<toast-login-success>": "تم تسجيل الدخول",
+  "@t<toast-logout-success>": "تم تسجيل الخروج"
 }
