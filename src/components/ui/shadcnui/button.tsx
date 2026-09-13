@@ -1,6 +1,9 @@
+'use client'
+
 import * as React from 'react'
 import { cn } from '@/lib/shadcn/utils'
 import { Slot } from '@radix-ui/react-slot'
+import { useRipple } from '@/hooks/use-ripple'
 import { cva, type VariantProps } from 'class-variance-authority'
 import {
   Tooltip,
@@ -45,20 +48,65 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  /**
+   * Material-style tap ripple from the press point. Opt-in, for two reasons: it needs
+   * `relative overflow-hidden` (which clips anything a button deliberately overflows, such as a
+   * badge hanging off the corner), and it renders an extra child — which `asChild` cannot accept,
+   * since Slot requires exactly one. Ignored when `asChild` is set.
+   */
+  ripple?: boolean
+  /**
+   * This button navigates (it calls `router.push`) rather than being a link. Tags it for
+   * `NavigationWaveListener`, which otherwise only waves real anchors — see that component.
+   */
+  navigates?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, clickable, asChild = false, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      clickable,
+      ripple,
+      navigates,
+      children,
+      onPointerDown: onPointerDownProp,
+      asChild = false,
+      ...props
+    },
+    ref
+  ) => {
     const Comp = asChild ? Slot : 'button'
+    const useRippleEffect = Boolean(ripple) && !asChild
+    const { onPointerDown, ripple: rippleNode } = useRipple()
+
     return (
       <Comp
         className={cn(
           'cursor-pointer hover:brightness-110',
+          useRippleEffect && 'relative overflow-hidden',
           buttonVariants({ variant, size, clickable, className })
         )}
         ref={ref}
+        {...(navigates ? { 'data-wave-nav': '' } : {})}
         {...props}
-      />
+        onPointerDown={(event: React.PointerEvent<HTMLButtonElement>) => {
+          if (useRippleEffect) onPointerDown(event)
+          onPointerDownProp?.(event)
+        }}
+      >
+        {/* Slot takes exactly one child, so an asChild button never gets the ripple overlay. */}
+        {asChild ? (
+          children
+        ) : (
+          <>
+            {children}
+            {useRippleEffect ? rippleNode : null}
+          </>
+        )}
+      </Comp>
     )
   }
 )

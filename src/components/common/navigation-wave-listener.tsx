@@ -39,6 +39,9 @@ const isSameOrigin = (href: string) => {
  *  - `data-wave-target`      — wave this element instead of the anchor (e.g. a button wrapping a link)
  *  - `data-wave-text-target` — shimmer this element's TEXT, for targets with no surface of their own
  *  - `data-wave-ignore`      — this subtree is not the target; keep looking outward
+ *  - `data-wave-nav`         — this element navigates WITHOUT being a link (a button calling
+ *                              `router.push`). Opt-in, because a click that starts no navigation has
+ *                              nothing to finish the wave and would run to the bail-out.
  *
  * With no attributes the anchor itself waves, so a plain `<Link>` needs no opt-in.
  */
@@ -72,20 +75,28 @@ export const NavigationWaveListener = () => {
 
       const target = event.target as HTMLElement | null
       const anchor = target?.closest('a[href]') as HTMLAnchorElement | null
-      if (!anchor) return
-      if (anchor.target && anchor.target !== '_self') return
-      if (anchor.hasAttribute('download')) return
 
-      const href = anchor.getAttribute('href')?.trim()
-      if (!href || href.startsWith('#')) return
-      if (href.startsWith('mailto:') || href.startsWith('tel:')) return
-      if (!isSameOrigin(href)) return
+      // A navigating control that is not a link (a button calling `router.push`). It has to say so:
+      // there is no href to check, so we cannot tell a navigating click from any other one.
+      const navControl = anchor ? null : (target?.closest('[data-wave-nav]') as HTMLElement | null)
+
+      if (!anchor && !navControl) return
+
+      if (anchor) {
+        if (anchor.target && anchor.target !== '_self') return
+        if (anchor.hasAttribute('download')) return
+
+        const href = anchor.getAttribute('href')?.trim()
+        if (!href || href.startsWith('#')) return
+        if (href.startsWith('mailto:') || href.startsWith('tel:')) return
+        if (!isSameOrigin(href)) return
+      }
 
       // Nearest wins, so an inner opt-out is only honoured while nothing more specific asked for the
       // wave — otherwise `data-wave-ignore` on a link's icon would silence the whole item.
       const textTarget =
         (target?.closest('[data-wave-text-target]') as HTMLElement | null) ??
-        (anchor.querySelector('[data-wave-text-target]') as HTMLElement | null)
+        (anchor?.querySelector('[data-wave-text-target]') as HTMLElement | null)
       const boxTarget = target?.closest('[data-wave-target]') as HTMLElement | null
       if (!textTarget && !boxTarget && target?.closest('[data-wave-ignore]')) return
 
@@ -93,8 +104,10 @@ export const NavigationWaveListener = () => {
         textTarget ??
         boxTarget ??
         (target?.closest('button') as HTMLElement | null) ??
-        (anchor.querySelector('button') as HTMLElement | null) ??
-        anchor
+        (anchor?.querySelector('button') as HTMLElement | null) ??
+        anchor ??
+        navControl
+      if (!element) return
 
       clearWave()
       wavingElements.current = [element]
