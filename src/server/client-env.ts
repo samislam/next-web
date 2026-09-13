@@ -11,12 +11,12 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_ENVIRONMENT: z
       .enum(['production', 'staging', 'testing', 'localhost'])
       .default('localhost'),
+    // Required: the auth BFF and every server-side API call resolve against it.
     NEXT_PUBLIC_MAIN_API_BASE_URL: z
       .string()
       .trim()
       .url()
-      .transform((value) => value.replace(/\/+$/, ''))
-      .optional(), // # comment this line if you want.
+      .transform((value) => value.replace(/\/+$/, '')),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_ENABLE_SENTRY: process.env.NEXT_PUBLIC_ENABLE_SENTRY,
@@ -25,6 +25,6 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_TOLGEE_PROJECT_ID: process.env.NEXT_PUBLIC_TOLGEE_PROJECT_ID,
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
     NEXT_PUBLIC_ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT,
-    NEXT_PUBLIC_MAIN_API_BASE_URL: process.env.NEXT_PUBLIC_MAIN_API_BASE_URL, // # comment this line if you want.
+    NEXT_PUBLIC_MAIN_API_BASE_URL: process.env.NEXT_PUBLIC_MAIN_API_BASE_URL,
   },
 })

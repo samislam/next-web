@@ -5,14 +5,31 @@
   "@t<error-page-title>": "Hoppla!",
   "@t<error-page-tryagain-button-text>": "Erneut versuchen",
   "@t<home-description>": "<b>Ein neuer, schneller Weg, um Ihre Projekte zu starten — ohne den Einrichtungsoverhead.</b>\nDieser Starter enthält eingebaute Lokalisierung, Dateisystem-Routing, RTL-Unterstützung und helles/dunkles Modus von Anfang an. Außerdem erhalten Sie ein nützliches Toolkit an Funktionen, um Ihren Arbeitsablauf zu beschleunigen.\nHören Sie auf, Zeit beim Konfigurieren zu verschwenden — <b>konzentrieren Sie sich auf den Bau Ihres Projekts!</b>",
+  "@t<home-title>": "Next-web Webanwendungsvorlage",
   "@t<home_meta": {
     "description>": "Next.js Webanwendungsvorlage - weniger Code schreiben, keine Zeit mit der Einrichtung verschwenden, auf die wichtigen Dinge konzentrieren!",
     "title>": "Next.js-Vorlagenprojekt: Konzentrieren Sie sich auf das Wesentliche!"
   },
-  "@t<home-title>": "Next-web Webanwendungsvorlage",
+  "@t<login-account-frozen-error>": "Dieses Konto ist gesperrt. Wenden Sie sich an einen Administrator.",
+  "@t<login-badge>": "Verwaltung",
+  "@t<login-generic-error>": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+  "@t<login-hide-password>": "Passwort verbergen",
+  "@t<login-invalid-credentials-error>": "Benutzername oder Passwort ist falsch.",
+  "@t<login-password-label>": "Passwort",
+  "@t<login-password-placeholder>": "Ihr Passwort",
+  "@t<login-show-password>": "Passwort anzeigen",
+  "@t<login-submit-button>": "Anmelden",
+  "@t<login-title>": "Melden Sie sich an, um Ihren Arbeitsbereich zu verwalten.",
+  "@t<login-username-label>": "Benutzername",
+  "@t<login-username-placeholder>": "Ihr Benutzername",
+  "@t<login_meta": {
+    "title>": "Anmelden",
+    "description>": "Melden Sie sich beim Administrations-Dashboard an."
+  },
   "@t<not-found-page-back-button-text>": "Zurück",
   "@t<not-found-page-back-to-home>": "Zurück zur Startseite",
   "@t<not-found-page-description>": "Die Seite, nach der Sie suchen, existiert nicht mehr. Vielleicht wurde sie entfernt oder war niemals dort.",
   "@t<not-found-page-title>": "Nicht gefunden!",
-  "@t<switching-language-loading-screen-text>": "Sprache wird geändert..."
+  "@t<switching-language-loading-screen-text>": "Sprache wird geändert...",
+  "@t<toast-login-success>": "Angemeldet"
 }

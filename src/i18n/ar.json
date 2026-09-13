@@ -5,14 +5,31 @@
   "@t<error-page-title>": "عذرًا!",
   "@t<error-page-tryagain-button-text>": "حاول مرة أخرى",
   "@t<home-description>": "<b>طريقة جديدة وسريعة لبدء مشاريعك — بدون عناء الإعدادات.</b>\nتتضمن هذه البادئة التوطين المدمج وتوجيه نظام الملفات ودعم اللغة من اليمين إلى اليسار ووضع الضوء/الظلام بشكل جاهز. بالإضافة إلى ذلك، تحصل على مجموعة أدوات مفيدة لتعزيز سير العمل.\nتوقف عن إهدار الوقت في تكوين الأشياء — <b> وركز على بناء مشروعك!</b>",
+  "@t<home-title>": "قالب نكسيست لتطبيقات ومواقع الويب",
   "@t<home_meta": {
     "description>": "قالب كود تطبيق ويب Next.js - اكتب كودًا أقل، توقف عن إضاعة الوقت في الإعدادات، ركز على الأشياء المهمة!",
     "title>": "قالب Next.js: ركّز على الأشياء المهمة!"
   },
-  "@t<home-title>": "قالب نكسيست لتطبيقات ومواقع الويب",
+  "@t<login-account-frozen-error>": "هذا الحساب موقوف. يرجى التواصل مع المسؤول.",
+  "@t<login-badge>": "الإدارة",
+  "@t<login-generic-error>": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+  "@t<login-hide-password>": "إخفاء كلمة المرور",
+  "@t<login-invalid-credentials-error>": "اسم المستخدم أو كلمة المرور غير صحيحة.",
+  "@t<login-password-label>": "كلمة المرور",
+  "@t<login-password-placeholder>": "كلمة المرور الخاصة بك",
+  "@t<login-show-password>": "إظهار كلمة المرور",
+  "@t<login-submit-button>": "تسجيل الدخول",
+  "@t<login-title>": "سجّل الدخول لإدارة مساحة عملك.",
+  "@t<login-username-label>": "اسم المستخدم",
+  "@t<login-username-placeholder>": "اسم المستخدم الخاص بك",
+  "@t<login_meta": {
+    "title>": "تسجيل الدخول",
+    "description>": "سجّل الدخول إلى لوحة الإدارة."
+  },
   "@t<not-found-page-back-button-text>": "العودة",
   "@t<not-found-page-back-to-home>": "العودة إلى الصفحة الرئيسية",
   "@t<not-found-page-description>": "الصفحة التي تبحث عنها لم تعد موجودة. ربما تم إزالتها، أو لم تكن هناك أبداً.",
   "@t<not-found-page-title>": "غير موجود!",
-  "@t<switching-language-loading-screen-text>": "انتظر قليلاً..."
+  "@t<switching-language-loading-screen-text>": "انتظر قليلاً...",
+  "@t<toast-login-success>": "تم تسجيل الدخول"
 }

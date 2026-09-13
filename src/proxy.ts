@@ -1,47 +1,47 @@
+import { COOKIES } from '@/constants'
 import { NextRequest } from 'next/server'
+import { pageDefs } from '@/config/pages.config'
 import createi18nMiddleware from 'next-intl/middleware'
 import { middlewareStack, pipe } from 'nextjs-middleware-stack'
 import { appRoutingDef } from './lib/next-intl/app-routing-def'
 
-// const regExp = {
-// Login/auth UI pages (optionally locale-prefixed), e.g. /auth/login or /en/auth/login
-// publicRoutes: /^\/(?:[a-z]{2}\/)?auth(?:\/.*)?$/,
-// application page routes (optionally locale-prefixed), e.g. /, /en/customers, /ar/settings
-// protectedRoutes: /^\/(?:[a-z]{2}\/)?(?!auth(\/|$)).*/,
-// }
+/**
+ * Patterns are matched against the pathname AFTER next-intl has been given a chance to run, so they
+ * are written without a locale prefix.
+ */
+const regExp = {
+  publicRoutes: /^\/auth(?:\/.*)?$/,
+  protectedRoutes: /^(?!\/auth(?:\/|$)).*/,
+}
 
+/**
+ * This is a presence check, not an authorization check.
+ *
+ * The cookie is opaque here (the token is verified by the backend on every call), so all this does is
+ * keep signed-out visitors off app routes and signed-in ones off the login page. Real enforcement
+ * happens where the data is: the API rejects a missing/expired/forged token regardless of what this
+ * middleware allowed through. Treating the cookie as proof of identity here would be the bug.
+ */
 export default middlewareStack<NextRequest>([
-  // AUTH GATE (run on protected routes)
-  // pipe(regExp.protectedRoutes, async (req) => {
-  //   const auth_token = req.cookies.get(AUTH_COOKIE)?.value
-  //   const validation = await validateTokens({ auth_token })
-  //   if (!validation.isValid) {
-  //     req.nextUrl.pathname = pageDefs.login.href
-  //     return
-  //   }
-  //   //  protect pages based on user role
-  //   const role = validation.authPayload.role
-  //   if (isAllowedByHref(req.nextUrl.pathname, role)) return
-  //   req.nextUrl.pathname = pageDefs.forbidden.href
-  // }),
-  // pipe(
-  //   // If already authed, block access to login/public auth routes
-  //   regExp.publicRoutes,
-  //   async (req) => {
-  //     const auth_token = req.cookies.get(AUTH_COOKIE)?.value
-  //     const { isValid: isAuthenticated } = await validateTokens({ auth_token })
-  //     if (!isAuthenticated) return
-  //     else req.nextUrl.pathname = pageDefs.home.href
-  //   }
-  // ),
-  // ... your other middlewares
-  // i18n middleware last
+  pipe(regExp.protectedRoutes, (req) => {
+    const authToken = req.cookies.get(COOKIES.MAIN_API__AUTH)?.value
+    if (authToken) return
+    req.nextUrl.pathname = pageDefs.login.href
+  }),
+  pipe(regExp.publicRoutes, (req) => {
+    const authToken = req.cookies.get(COOKIES.MAIN_API__AUTH)?.value
+    if (!authToken) return
+    req.nextUrl.pathname = pageDefs.home.href
+  }),
+  // i18n middleware last.
   pipe(() => true, createi18nMiddleware(appRoutingDef)),
 ])
 
 export const config = {
   matcher: [
-    // Run middleware for page routes only (exclude API, internals, assets, and root static files)
+    // Run middleware for page routes only (exclude API, internals, assets, and root static files).
+    // A service worker (sw.js) must be served as-is from the root — no locale rewrite — so add it
+    // here if you register one.
     '/((?!api|_next|_diag|assets|favicon\\.ico|robots\\.txt|sitemap\\.xml|site\\.webmanifest).*)',
   ],
 }

@@ -5,14 +5,31 @@
   "@t<error-page-title>": "Oops!",
   "@t<error-page-tryagain-button-text>": "Try again",
   "@t<home-description>": "<b>A new, fast way to kick off your projects — without the setup hassle.</b>\nThis starter includes built-in localization, file-system routing, RTL support, and light/dark mode out of the box. Plus, you get a helpful toolkit of utilities to boost your workflow.\nStop wasting time configuring things — <b>focus on building your project!</b>",
+  "@t<home-title>": "Next-web web application template",
   "@t<home_meta": {
     "description>": "Next.js web application template code - write less code, stop wasting time setting up stuff, focus on important things!",
     "title>": "Next.js Template Project: Focus on important stuff!"
   },
-  "@t<home-title>": "Next-web web application template",
+  "@t<login-account-frozen-error>": "This account is suspended. Contact an administrator.",
+  "@t<login-badge>": "Administration",
+  "@t<login-generic-error>": "Something went wrong. Please try again.",
+  "@t<login-hide-password>": "Hide password",
+  "@t<login-invalid-credentials-error>": "Incorrect username or password.",
+  "@t<login-password-label>": "Password",
+  "@t<login-password-placeholder>": "Your password",
+  "@t<login-show-password>": "Show password",
+  "@t<login-submit-button>": "Sign in",
+  "@t<login-title>": "Sign in to manage your workspace.",
+  "@t<login-username-label>": "Username",
+  "@t<login-username-placeholder>": "Your username",
+  "@t<login_meta": {
+    "title>": "Sign in",
+    "description>": "Sign in to the administration dashboard."
+  },
   "@t<not-found-page-back-button-text>": "Go back",
   "@t<not-found-page-back-to-home>": "Back Home",
   "@t<not-found-page-description>": "The page you're looking for no longer exists. Perhaps it got removed, or it's never been there.",
   "@t<not-found-page-title>": "Not found!",
-  "@t<switching-language-loading-screen-text>": "Changing language..."
+  "@t<switching-language-loading-screen-text>": "Changing language...",
+  "@t<toast-login-success>": "Signed in"
 }

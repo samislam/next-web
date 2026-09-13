@@ -28,11 +28,16 @@ export type AppErrorCodes = (typeof errorCodes)[number]
 export const LOCALE_COOKIE = 'NEXT_LOCALE'
 
 export const COOKIES = {
-  // MAIN_API__AUTH: 'MAIN_API__AUTH',
+  /** Holds the backend access token. Written by the auth BFF, never by client JavaScript. */
+  MAIN_API__AUTH: 'MAIN_API__AUTH',
 } as const
 
 export const QUERY_PARAMS = {
   dialog: 'dialog',
   id: 'id',
   tab: 'tab',
+  search: 'search',
+  // Points at an element id on the target page; that element is scrolled into view and briefly
+  // "beamed" (see the `highlight-beam` utility in globals.css) to draw the eye to it.
+  highlight: 'highlight',
 } as const
