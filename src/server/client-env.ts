@@ -1,6 +1,11 @@
 import { z } from 'zod'
 import { createEnv } from '@t3-oss/env-nextjs'
 
+/**
+ * Every variable has a working development default, so a fresh clone runs with NO `.env` file at all.
+ * A deployment overrides them; nothing here is required for the app to start.
+ */
+
 export const clientEnv = createEnv({
   client: {
     NEXT_PUBLIC_ENABLE_SENTRY: z.enum(['yes', 'no']).default('no'),
@@ -11,11 +16,13 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_ENVIRONMENT: z
       .enum(['production', 'staging', 'testing', 'localhost'])
       .default('localhost'),
-    // Required: the auth BFF and every server-side API call resolve against it.
+    // The backend this admin talks to — used by the auth BFF and every server-side API call.
+    // Defaults to the paired nest-starter's local address, so the two run together out of the box.
     NEXT_PUBLIC_MAIN_API_BASE_URL: z
       .string()
       .trim()
       .url()
+      .default('http://localhost:4000/api/v1')
       .transform((value) => value.replace(/\/+$/, '')),
   },
   experimental__runtimeEnv: {
