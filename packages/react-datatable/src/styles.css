@@ -1,0 +1,350 @@
+/**
+ * Structural styles only — the minimum required for correctness (grid layout, sticky header/footer,
+ * column pinning, resize handle, virtualization, density). Colors/borders/typography come from the host
+ * via `classNames` slots or by setting the `--dt-*` tokens. Import once:
+ *   import '@samislam/react-datatable/styles.css'
+ */
+
+.dt-root {
+  --dt-cell-pad-x: 0.75rem;
+  --dt-cell-pad-y: 0.5rem;
+  --dt-line: color-mix(in oklab, currentColor 12%, transparent);
+  --dt-line-width: 1px;
+  width: 100%;
+}
+.dt-root[data-density='compact'] {
+  --dt-cell-pad-x: 0.5rem;
+  --dt-cell-pad-y: 0.375rem;
+}
+.dt-root[data-density='spacious'] {
+  --dt-cell-pad-x: 1rem;
+  --dt-cell-pad-y: 0.875rem;
+}
+
+.dt-scroller {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  /* Column layout so the body (or empty state) can grow to a `minBodyHeight` floor while the sticky
+     footer stays pinned at the bottom. Harmless with no floor set — content sizes as before. */
+  display: flex;
+  flex-direction: column;
+}
+
+.dt-header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  flex: 0 0 auto;
+}
+/* Grows to fill any space left by a `minBodyHeight` floor; when rows overflow it keeps its own height
+   (basis) and the scroller scrolls. */
+.dt-body {
+  flex: 1 0 auto;
+}
+.dt-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  flex: 0 0 auto;
+}
+
+.dt-row {
+  display: grid;
+  align-items: stretch;
+}
+
+.dt-cell {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: var(--dt-cell-pad-y) var(--dt-cell-pad-x);
+  overflow: hidden;
+}
+.dt-cell[data-align='center'] {
+  justify-content: center;
+  text-align: center;
+}
+.dt-cell[data-align='end'] {
+  justify-content: flex-end;
+  text-align: end;
+}
+
+/* ── Content overflow (opt-in via `meta.overflow`) ───────────────────────────────────────────────
+   The cell content is wrapped in `.dt-cell-content` ONLY when a column sets `meta.overflow`, so cells
+   without it render exactly as before. `flex: 1; min-width: 0` is what lets a flex child actually
+   truncate/clamp instead of forcing the column wider. */
+.dt-cell-content {
+  min-width: 0;
+  max-width: 100%;
+  flex: 1;
+}
+.dt-cell[data-align='end'] .dt-cell-content {
+  text-align: end;
+}
+.dt-cell-content[data-overflow='truncate'] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dt-cell-content[data-overflow='clip'] {
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* Wrap (uncapped = clamp var defaults to 999) and wrap-truncate (JS sets --dt-clamp, default 2). */
+.dt-cell-content[data-overflow='wrap'],
+.dt-cell-content[data-overflow='wrap-truncate'] {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--dt-clamp, 999);
+  line-clamp: var(--dt-clamp, 999);
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+/* ── Media fit (opt-in via `meta.mediaFit`) — how an image/video/svg child fills a constrained cell. */
+.dt-cell[data-media-fit] {
+  overflow: hidden;
+}
+.dt-cell[data-media-fit='contain'] :is(img, video, svg) {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.dt-cell[data-media-fit='cover'] :is(img, video, svg) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Auto-fit measurement pass (transient `data-measuring` on the scroller) — take each column off the
+   fixed grid track and let every cell shrink to its own content, so measuring the cell box reports its
+   TRUE natural width (a grid item otherwise fills its track, and scrollWidth would just echo the track).
+   Everything is forced onto one unclamped line. Toggled synchronously in an effect, so it never paints. */
+.dt-scroller[data-measuring] .dt-row {
+  display: flex !important;
+  width: max-content !important;
+  grid-template-columns: none !important;
+}
+.dt-scroller[data-measuring] .dt-cell {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  overflow: visible !important;
+}
+.dt-scroller[data-measuring] .dt-cell > * {
+  white-space: nowrap !important;
+}
+.dt-scroller[data-measuring] .dt-cell-content {
+  display: inline-block !important;
+  max-width: none !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+  -webkit-line-clamp: none !important;
+  line-clamp: none !important;
+}
+.dt-scroller[data-measuring] .dt-header-label,
+.dt-scroller[data-measuring] .dt-header-label > * {
+  max-width: none !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+}
+
+/* Pinned cells sit over scrolled content, so they need an OPAQUE background. Set the tokens on the root
+   (e.g. Tailwind `[--dt-pinned-bg:hsl(var(--card))]`). */
+.dt-body .dt-cell[data-pinned],
+.dt-footer .dt-cell[data-pinned] {
+  background: var(--dt-pinned-bg, transparent);
+}
+.dt-header-cell[data-pinned] {
+  background: var(--dt-header-pinned-bg, var(--dt-pinned-bg, transparent));
+  z-index: 4;
+}
+
+/* Grid lines — controlled by the `gridLines` prop (data-grid-lines). Color via `--dt-line`, width via
+   `--dt-line-width`. Vertical lines are internal only: the last cell of a row draws no trailing line. */
+.dt-root[data-grid-lines='columns'] .dt-cell,
+.dt-root[data-grid-lines='both'] .dt-cell {
+  border-inline-end: var(--dt-line-width) solid var(--dt-line);
+}
+.dt-root[data-grid-lines='columns'] .dt-row > .dt-cell:last-child,
+.dt-root[data-grid-lines='both'] .dt-row > .dt-cell:last-child {
+  border-inline-end: 0;
+}
+.dt-root[data-grid-lines='rows'] .dt-rowwrap,
+.dt-root[data-grid-lines='both'] .dt-rowwrap {
+  border-bottom: var(--dt-line-width) solid var(--dt-line);
+}
+
+.dt-header-cell {
+  position: relative;
+  gap: 0.25rem;
+  font-weight: 600;
+}
+
+.dt-header-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: default;
+}
+.dt-header-label[data-can-sort] {
+  cursor: pointer;
+}
+.dt-header-label > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dt-sort-ind {
+  flex: none;
+  font-size: 0.75em;
+  opacity: 0.7;
+}
+
+.dt-col-menu {
+  flex: none;
+  margin-inline-start: auto;
+  display: inline-flex;
+}
+
+/* Pin toggle beside a pinned column's name — its presence marks the column as pinned; click = unpin. */
+.dt-col-pin {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0.125rem;
+  border: 0;
+  border-radius: 0.25rem;
+  background: none;
+  color: var(--dt-pin-color, currentColor);
+  cursor: pointer;
+  opacity: 0.85;
+  transition:
+    opacity 0.15s ease,
+    background-color 0.15s ease;
+}
+.dt-col-pin:hover {
+  opacity: 1;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.dt-resizer {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
+}
+.dt-resizer:hover,
+.dt-resizer[data-resizing] {
+  background: currentColor;
+  opacity: 0.2;
+}
+
+.dt-expander {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.dt-expander[data-expanded] {
+  transform: rotate(90deg);
+}
+
+.dt-checkbox {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  accent-color: currentColor;
+}
+
+/* Row grouping */
+.dt-group-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+}
+.dt-group-chevron {
+  flex: none;
+  transition: transform 0.15s ease;
+}
+.dt-group-toggle[data-expanded] .dt-group-chevron {
+  transform: rotate(90deg);
+}
+.dt-group-count {
+  font-size: 0.75em;
+  font-weight: 400;
+  opacity: 0.6;
+}
+.dt-rowwrap[data-grouped] {
+  background: var(--dt-group-bg, color-mix(in oklab, currentColor 5%, transparent));
+}
+
+/* Range selection — cells stay text-selectable/copyable; selection is suppressed only WHILE dragging a
+   rectangular range across cells (the root gets data-range-dragging then). */
+.dt-root[data-range-dragging] .dt-cell {
+  user-select: none;
+}
+.dt-cell[data-range] {
+  box-shadow: inset 0 0 0 9999px var(--dt-range-bg, rgba(59, 130, 246, 0.16));
+}
+.dt-statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.dt-empty {
+  /* Fill the floor left by `minBodyHeight` and center the message in it. */
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dt-expander,
+  .dt-group-chevron {
+    transition: none;
+  }
+}
