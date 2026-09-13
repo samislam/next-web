@@ -10,6 +10,7 @@ export type CustomInputProps = {
   dir?: 'ltr' | 'rtl' | 'auto'
   startAction?: React.ReactNode
   iconPosition?: 'start' | 'end'
+  chrome?: 'default' | 'embedded'
 }
 export type InputProps = React.ComponentProps<'input'> & CustomInputProps
 
@@ -22,6 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     endAction,
     iconClassName,
     iconPosition = 'start',
+    chrome = 'default',
     rootClassname,
     dir,
     ...rest
@@ -41,12 +43,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     <div
       className={cn(
         // container styles
-        'border-input flex h-10 w-full min-w-0 items-center rounded-md border px-3',
-        'bg-white/80 shadow-sm transition-colors dark:bg-white/10',
+        'flex h-10 w-full min-w-0 items-center px-3 transition-colors',
+        chrome === 'default' && 'border-input bg-background rounded-md border shadow-sm',
+        chrome === 'embedded' && 'rounded-none border-0 bg-transparent px-0 shadow-none',
         // react to child focus
-        'focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-2',
+        chrome === 'default' &&
+          'focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-2',
         // invalid state if the INPUT carries aria-invalid
-        'aria-invalid:border-destructive focus-within:aria-invalid:ring-destructive/40',
+        chrome === 'default' &&
+          'aria-invalid:border-destructive focus-within:aria-invalid:ring-destructive/40',
         // disabled state if the INPUT is disabled (visual only)
         'disabled:cursor-not-allowed disabled:opacity-50',
         rootClassname

@@ -21,4 +21,4 @@ export interface AppConfig<L extends string> {
 }
 
 export type AppLanguages = (typeof appConfig.languages)[number]
-export type AppThemes = 'light' | 'dark'
+export type AppThemes = 'light' | 'dark' | 'system'

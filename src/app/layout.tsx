@@ -22,7 +22,9 @@ export default async function RootLayout(props: LayoutProps) {
   const { children } = props
   const locale = (await getLocale()) as AppLanguages // # your logic to fetch the specific user locale
   const locales = await getStaticData([appConfig.fallbackLanguage, locale])
-  const fontClassname = locale === 'ar' ? cairo.className : geistSans.className
+  // Both faces are always present. Which one draws a character is decided by Cairo's unicode-range
+  // (see below), not by the locale, so mixed-script screens render each script in its own typeface.
+  const fontClassname = `${geistSans.variable} ${cairo.variable}`
 
   return (
     <NextIntlClientProvider locale={locale}>
@@ -55,6 +57,32 @@ export default async function RootLayout(props: LayoutProps) {
 const cairo = localFont({
   variable: '--font-cairo',
   display: 'swap',
+  /**
+   * No auto-generated fallback face.
+   *
+   * next/font normally emits a companion "cairo Fallback" (a local font with size-adjust metrics)
+   * alongside the real one, and that companion carries NO unicode-range — so with Cairo first in the
+   * stack it swallowed Latin text and rendered it in Arial. Cairo is here purely to cover Arabic;
+   * Geist is the fallback for everything else, and it brings its own metric-matched face.
+   */
+  adjustFontFallback: false,
+  /**
+   * Arabic, Arabic Supplement, Arabic Extended-A/B and the Presentation Forms.
+   *
+   * Declaring a range makes the browser resolve fonts PER GLYPH rather than per page: Arabic renders
+   * in Cairo even while the UI is English, and Latin text on an Arabic page keeps Geist instead of
+   * falling into Cairo's Latin faces.
+   *
+   * Written inline because next/font parses these arguments statically — a referenced constant
+   * arrives with an empty value and the build fails.
+   */
+  declarations: [
+    {
+      prop: 'unicode-range',
+      value:
+        'U+0600-06FF, U+0750-077F, U+0870-088E, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF, U+200F, U+061C',
+    },
+  ],
   src: [
     {
       path: './fonts/cairo/static/Cairo-ExtraLight.ttf',
@@ -67,7 +95,10 @@ const cairo = localFont({
       style: 'normal',
     },
     {
-      path: './fonts/cairo/static/Cairo-Regular.ttf',
+      // Cairo's true Regular (400) renders too thin/light for Arabic body text, so we map the default
+      // weight to the Medium glyphs. This only affects Arabic — Latin text is drawn by Geist, which
+      // keeps its own 400 — so Arabic reads a touch darker without touching the rest of the UI.
+      path: './fonts/cairo/static/Cairo-Medium.ttf',
       weight: '400',
       style: 'normal',
     },

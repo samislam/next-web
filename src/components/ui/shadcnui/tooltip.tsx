@@ -28,26 +28,29 @@ const TooltipContent = React.forwardRef<
 ))
 TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-export interface SimpleTooltipProps extends React.PropsWithChildren {
-  text: string
+export interface SimpleTooltipProps extends React.ComponentPropsWithoutRef<typeof TooltipTrigger> {
+  text: React.ReactNode
   side?: 'top' | 'bottom' | 'left' | 'right'
   asChild?: boolean // allow overriding the trigger wrapper
 }
 
-export function SimpleTooltip({
-  text,
-  side = 'top',
-  children,
-  asChild = true,
-}: SimpleTooltipProps) {
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
-        <TooltipContent side={side}>{text}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  )
-}
+// forwardRef + prop spreading so SimpleTooltip can itself be the child of another `asChild` trigger
+// (e.g. a ConfirmDialog/Dialog trigger). Radix injects onClick/ref onto its child; without forwarding
+// them here they'd be swallowed at the tooltip boundary and the wrapped button would never open the
+// dialog. Both Slots then merge onto the same underlying button.
+export const SimpleTooltip = React.forwardRef<
+  React.ElementRef<typeof TooltipTrigger>,
+  SimpleTooltipProps
+>(({ text, side = 'top', children, asChild = true, ...props }, ref) => (
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger asChild={asChild} ref={ref} {...props}>
+        {children}
+      </TooltipTrigger>
+      <TooltipContent side={side}>{text}</TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+))
+SimpleTooltip.displayName = 'SimpleTooltip'
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
