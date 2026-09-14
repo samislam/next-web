@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie'
 import { COOKIES } from '@/constants'
 import { useEffect, useState } from 'react'
-import { clientEnv } from '@/server/client-env'
+import { mainApiBaseUrl } from '@/lib/main-api/base-url'
 
 type AuthImageProps = {
   /** API path beginning with `/api/...` (the main API base URL is prepended). */
@@ -29,7 +29,7 @@ export const AuthImage = (props: AuthImageProps) => {
     setFailed(false)
 
     const token = Cookies.get(COOKIES.MAIN_API__AUTH)
-    fetch(`${clientEnv.NEXT_PUBLIC_MAIN_API_BASE_URL}${path}`, {
+    fetch(`${mainApiBaseUrl()}${path}`, {
       credentials: 'include',
       headers: token ? { authorization: `Bearer ${token}` } : undefined,
     })

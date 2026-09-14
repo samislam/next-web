@@ -2,7 +2,7 @@ import 'server-only'
 
 import { COOKIES } from '@/constants'
 import { headers, cookies } from 'next/headers'
-import { clientEnv } from '@/server/client-env'
+import { mainApiBaseUrl } from './base-url'
 
 /** A non-2xx from the backend. Carries the status so callers can tell a 401 from a real failure. */
 export class MainApiError extends Error {
@@ -37,7 +37,7 @@ export async function mainApiFetch<T>(path: string, init: RequestInit = {}): Pro
   const clientIp =
     forwardedFor?.split(',')[0]?.trim() || requestHeaders.get('x-real-ip') || undefined
 
-  const response = await fetch(`${clientEnv.NEXT_PUBLIC_MAIN_API_BASE_URL}${path}`, {
+  const response = await fetch(`${mainApiBaseUrl()}${path}`, {
     ...init,
     // Never cache an authenticated response: it is scoped to one signed-in user.
     cache: 'no-store',

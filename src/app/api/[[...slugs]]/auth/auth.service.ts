@@ -1,6 +1,6 @@
 import { COOKIES } from '@/constants'
 import { serverEnv } from '@/server/server-env'
-import { clientEnv } from '@/server/client-env'
+import { mainApiBaseUrl } from '@/lib/main-api/base-url'
 import type { AuthCookieStore, BackendLoginResponse } from './auth.types'
 
 export class AuthService {
@@ -50,7 +50,7 @@ export class AuthService {
     credentials: { username: string; password: string },
     context: { ip?: string; userAgent?: string } = {}
   ): Promise<BackendLoginResponse> {
-    const response = await fetch(`${clientEnv.NEXT_PUBLIC_MAIN_API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${mainApiBaseUrl()}/auth/login`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

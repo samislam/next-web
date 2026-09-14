@@ -16,14 +16,22 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_ENVIRONMENT: z
       .enum(['production', 'staging', 'testing', 'localhost'])
       .default('localhost'),
-    // The backend this admin talks to — used by the auth BFF and every server-side API call.
-    // Defaults to the paired nest-starter's local address, so the two run together out of the box.
-    NEXT_PUBLIC_MAIN_API_BASE_URL: z
-      .string()
-      .trim()
-      .url()
-      .default('http://localhost:4000/api/v1')
-      .transform((value) => value.replace(/\/+$/, '')),
+    // ? EXTERNAL BACKEND — off by default, and deliberately not required.
+    // ?
+    // ? next-web is a standalone full-stack app: the Elysia routes under `src/app/api/[[...slugs]]/`
+    // ? are a complete backend, and many projects never add another one. Others talk to a separate
+    // ? API instead, and some do both. Because none of those is "the" shape, this variable is not
+    // ? part of the validated schema and has NO default — nothing is assumed about where, or
+    // ? whether, a backend lives.
+    // ?
+    // ? The code paths that do call an external API read it through `mainApiBaseUrl()`
+    // ? (src/lib/main-api/base-url.ts), which fails with a clear message if it is missing. Uncomment
+    // ? the two lines below if you would rather have it validated at boot instead.
+    // NEXT_PUBLIC_MAIN_API_BASE_URL: z
+    //   .string()
+    //   .trim()
+    //   .url()
+    //   .transform((value) => value.replace(/\/+$/, '')),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_ENABLE_SENTRY: process.env.NEXT_PUBLIC_ENABLE_SENTRY,
@@ -32,6 +40,6 @@ export const clientEnv = createEnv({
     NEXT_PUBLIC_TOLGEE_PROJECT_ID: process.env.NEXT_PUBLIC_TOLGEE_PROJECT_ID,
     NEXT_PUBLIC_SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN,
     NEXT_PUBLIC_ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT,
-    NEXT_PUBLIC_MAIN_API_BASE_URL: process.env.NEXT_PUBLIC_MAIN_API_BASE_URL,
+    // NEXT_PUBLIC_MAIN_API_BASE_URL: process.env.NEXT_PUBLIC_MAIN_API_BASE_URL,
   },
 })
