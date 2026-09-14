@@ -2,15 +2,15 @@ import { LayoutProps } from '@/lib/next/next-types'
 import { UserProvider } from '@/providers/user.provider'
 import type { UserData } from '@/providers/user.provider'
 import { getDashboardConfig } from '@/config/dashboard.config'
-import { DashboardLayout } from '@/components/layouts/dashboard-layout'
-import { DynamicSidebarProvider } from '@/components/layouts/dashboard-layout'
-import { BreadcrumbLabelsProvider } from '@/components/layouts/dashboard-layout'
+import { DashboardLayout } from '@samislam/dashboard-layout'
+import { DynamicSidebarProvider } from '@samislam/dashboard-layout'
+import { BreadcrumbLabelsProvider } from '@samislam/dashboard-layout'
 
 // ? AUTHENTICATION — off by default. To enable, uncomment these two imports and the block at the
 // ? bottom of this file (delete the placeholder `Layout` below), then uncomment the route gates in
 // ? `src/proxy.ts`. Every commented line below just needs its leading `// ` removed.
 // import { mainApiFetch, MainApiError } from '@/lib/main-api/server-fetch'
-// import { SessionExpiredErrorScreen } from '@/components/layouts/error-screens/session-expired-error-screen'
+// import { SessionExpiredErrorScreen } from '@samislam/dashboard-layout'
 
 /**
  * The dashboard shell — sidebar, topnav, breadcrumbs, navigation progress.

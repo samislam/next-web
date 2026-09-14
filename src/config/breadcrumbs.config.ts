@@ -1,6 +1,6 @@
 import { pageDefs } from './pages.config'
-import { DashboardBreadcrumbsConfig } from '@/components/layouts/dashboard-layout/types/dashboard-breadcrumbs.types'
-import { DashboardBreadcrumbRewriteAlias } from '@/components/layouts/dashboard-layout/types/dashboard-breadcrumbs.types'
+import { DashboardBreadcrumbsConfig } from '@samislam/dashboard-layout'
+import { DashboardBreadcrumbRewriteAlias } from '@samislam/dashboard-layout'
 
 /**
  * How a pathname becomes a breadcrumb trail.

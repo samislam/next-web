@@ -1,6 +1,6 @@
 import { pageDefs } from './pages.config'
 import { getTranslate } from '@/lib/tolgee/tolgee-server'
-import { createDashboardConfig } from '@/components/layouts/dashboard-layout'
+import { createDashboardConfig } from '@samislam/dashboard-layout'
 
 /**
  * The dashboard shell's navigation.

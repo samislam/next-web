@@ -24,6 +24,7 @@
         "@radix-ui/react-toggle": "^1.1.10",
         "@radix-ui/react-toggle-group": "^1.1.11",
         "@radix-ui/react-tooltip": "^1.2.8",
+        "@samislam/dashboard-layout": "workspace:*",
         "@samislam/react-datatable": "workspace:*",
         "@sentry/nextjs": "^10.38.0",
         "@t3-oss/env-nextjs": "^0.13.10",
@@ -102,6 +103,15 @@
         "ts-patch": "^3.3.0",
         "tsx": "^4.21.0",
         "typescript": "^5.9.3",
+      },
+    },
+    "packages/dashboard-layout": {
+      "name": "@samislam/dashboard-layout",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "next": ">=15",
+        "react": ">=18",
+        "react-dom": ">=18",
       },
     },
     "packages/react-datatable": {
@@ -629,6 +639,8 @@
     "@rollup/rollup-win32-x64-msvc": ["@rollup/rollup-win32-x64-msvc@4.60.4", "", { "os": "win32", "cpu": "x64" }, "sha512-QVTUovf40zgTqlFVrKA1uXMVvU2QWEFWfAH8Wdc48IxLvrJMQVMBRjuQyUpzZCDkakImib9eVazbWlC6ksWtJw=="],
 
     "@rtsao/scc": ["@rtsao/scc@1.1.0", "", {}, "sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g=="],
+
+    "@samislam/dashboard-layout": ["@samislam/dashboard-layout@workspace:packages/dashboard-layout"],
 
     "@samislam/react-datatable": ["@samislam/react-datatable@workspace:packages/react-datatable"],
 

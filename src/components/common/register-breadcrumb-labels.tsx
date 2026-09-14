@@ -1,6 +1,6 @@
 'use client'
 
-import { useRegisterBreadcrumbLabels } from '@/components/layouts/dashboard-layout'
+import { useRegisterBreadcrumbLabels } from '@samislam/dashboard-layout'
 
 /** Registers path→label overrides for the dashboard breadcrumbs while mounted (renders nothing). */
 export const RegisterBreadcrumbLabels = (props: { labels: Record<string, string> }) => {

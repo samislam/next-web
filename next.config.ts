@@ -12,7 +12,7 @@ const nextConfig = {
   output: 'standalone',
   // The local workspace package ships as TypeScript SOURCE (no build step), so Next must compile it
   // like app code. Without this the import resolves to raw .ts and the build fails.
-  transpilePackages: ['@samislam/react-datatable'],
+  transpilePackages: ['@samislam/react-datatable', '@samislam/dashboard-layout'],
   images: {
     unoptimized: IMAGE_OPTIMIZATION === 'no' ? false : true,
     remotePatterns: [],
