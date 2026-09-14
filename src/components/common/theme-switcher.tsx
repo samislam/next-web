@@ -7,16 +7,17 @@ import { ToggleGroup, ToggleGroupItem } from '../ui/shadcnui/toggle-group'
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme()
-  const [value, setValue] = useState<string>()
+  // The theme is only known on the client, so render nothing selected until mounted (avoids a
+  // hydration mismatch). Always pass a string: starting from `undefined` made the ToggleGroup
+  // uncontrolled, then switching to the theme made it controlled — which React warns about.
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const value = mounted ? (theme ?? '') : ''
 
-  const handleChange = (value: string) => {
-    setTheme(value)
-    // ... Your logic to server actions
+  const handleChange = (next: string) => {
+    // Clicking the active item makes a single ToggleGroup emit '' — keep the current theme instead.
+    if (next) setTheme(next)
   }
-
-  useEffect(() => {
-    setValue(theme)
-  }, [value, theme])
 
   return (
     <ToggleGroup type="single" value={value} onValueChange={handleChange} className="gap-1">
