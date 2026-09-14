@@ -1,6 +1,5 @@
 import { LoginForm } from './login.form'
 import appConfig from '@/config/app.config'
-import { clientEnv } from '@/server/client-env'
 import { AppIcon } from '@/components/common/app-icon'
 import { getTranslate } from '@/lib/tolgee/tolgee-server'
 import { ThemeSwitcher } from '@/components/common/theme-switcher'
@@ -74,17 +73,6 @@ const Page = async () => {
                 </p>
                 <div className="bg-primary/40 mt-2 mb-7 h-px w-10" />
                 <LoginForm />
-
-                {/* The starter's seeded credentials, so nobody has to go digging through a seeder
-                    file to get in. Localhost only — never rendered in any deployed environment. */}
-                {clientEnv.NEXT_PUBLIC_ENVIRONMENT === 'localhost' ? (
-                  <p className="text-muted-foreground mt-6 text-center text-xs">
-                    Development default: <code className="font-mono font-semibold">root</code> /{' '}
-                    <code className="font-mono font-semibold">root</code> — seeded by{' '}
-                    <code className="font-mono">pnpm run setup</code>. Override with ROOT_USERNAME /
-                    ROOT_PASSWORD.
-                  </p>
-                ) : null}
               </div>
             </div>
           </div>
