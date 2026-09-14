@@ -31,7 +31,8 @@ export default async function RootLayout(props: LayoutProps) {
     <NextIntlClientProvider locale={locale}>
       <TolgeeNextProvider locale={locale} locales={locales}>
         <html dir={locale === 'ar' ? 'rtl' : 'ltr'} lang={locale} suppressHydrationWarning>
-          <body className={`${fontClassname} antialiased`}>
+          {/* Browser extensions (Grammarly, password managers) stamp attributes on <body> before React hydrates. */}
+          <body suppressHydrationWarning className={`${fontClassname} antialiased`}>
             <ThemeProvider
               enableSystem
               attribute="class"

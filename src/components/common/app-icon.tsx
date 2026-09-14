@@ -35,7 +35,7 @@ export const AppIcon = (props: AppIconProps) => {
         height={height}
         alt="Logo"
         src={appConfig.appLogo}
-        style={{ maxHeight: `${height}px` }}
+        style={{ height: `${height}px`, width: 'auto' }}
         className={cn('object-contain', imageClassName)}
       />
     </div>
