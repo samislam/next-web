@@ -13,10 +13,15 @@ import { BreadcrumbLabelsProvider } from '@/components/layouts/dashboard-layout'
 // import { SessionExpiredErrorScreen } from '@/components/layouts/error-screens/session-expired-error-screen'
 
 /**
- * The dashboard shell.
+ * The dashboard shell — sidebar, topnav, breadcrumbs, navigation progress.
  *
- * It ships WITHOUT authentication so a fresh clone renders with no backend running. The signed-in
- * user is a placeholder — see the bottom of this file for the real flow.
+ * This route group ships with NO pages in it, on purpose: the home page is a plain centred page at
+ * `[locale]/(routing)/page.tsx` and does not get the shell. Add a page anywhere under
+ * `[locale]/(dashboard)/` and it is wrapped in the shell automatically; its nav lives in
+ * `src/config/dashboard.config.ts`.
+ *
+ * It also ships WITHOUT authentication, so it renders with no backend running. The signed-in user is
+ * a placeholder — see the bottom of this file for the real flow.
  */
 const Layout = async (props: LayoutProps) => {
   const { children } = props
